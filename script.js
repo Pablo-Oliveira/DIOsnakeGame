@@ -2,6 +2,7 @@ let canvas = document.getElementById("snake");
 let context = canvas.getContext("2d");
 let box = 32;
 let snake = [];
+let contador = 0;
 snake[0] = {
     x: 8 * box,
     y: 8 * box
@@ -10,6 +11,9 @@ let direction = "right";
 let food = {
     x: Math.floor(Math.random() * 15 + 1) * box,
     y: Math.floor(Math.random() * 15 + 1) * box
+}
+function reset() {
+    document.location.reload();
 }
 
 function criarBG() {
@@ -48,7 +52,9 @@ function iniciarJogo() {
     for (i = 1; i < snake.length; i++) {
         if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
             clearInterval(jogo);
-            alert('GAME OVER :(');
+            alert('Game Over');
+            document.getElementById("titulo").innerHTML = '<p style="color:red; font-size:90px;">GAME OVER :(</p>';
+
         }
     }
 
@@ -66,10 +72,12 @@ function iniciarJogo() {
 
     if (snakeX != food.x || snakeY != food.y) {
         snake.pop();
+
     }
     else {
         food.x = Math.floor(Math.random() * 15 + 1) * box;
         food.y = Math.floor(Math.random() * 15 + 1) * box;
+        contador++;
     }
 
     let newHead = {
@@ -77,6 +85,7 @@ function iniciarJogo() {
         y: snakeY
     }
     snake.unshift(newHead);
+    document.querySelector("footer").innerHTML = `Tamanho da Snake: ${contador}`;
 
 }
 
